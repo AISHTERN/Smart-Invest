@@ -291,16 +291,13 @@
             <p class="mb-6 text-gray-400">All rights reserved</p>
             <div class="flex space-x-4">
                 <a href="#" class="flex items-center justify-center w-10 h-10 transition-transform bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl hover:scale-110">
-                    <img src="{{ asset('img/social-icons-4.svg') }}" class="h-5">
+                    <img src="{{ asset('fb.png') }}" class="h-5">
                 </a>
                 <a href="#" class="flex items-center justify-center w-10 h-10 transition-transform bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:scale-110">
-                    <img src="{{ asset('img/social-icons.svg') }}" class="h-5">
+                    <img src="{{ asset('ig.png') }}" class="h-5">
                 </a>
                 <a href="#" class="flex items-center justify-center w-10 h-10 transition-transform bg-gradient-to-r from-pink-500 to-red-500 rounded-xl hover:scale-110">
-                    <img src="{{ asset('img/social-icons-2.svg') }}" class="h-5">
-                </a>
-                <a href="#" class="flex items-center justify-center w-10 h-10 transition-transform bg-gradient-to-r from-green-500 to-blue-500 rounded-xl hover:scale-110">
-                    <img src="{{ asset('img/social-icons-3.svg') }}" class="h-5">
+                    <img src="{{ asset('wa.png') }}" class="h-5">
                 </a>
             </div>
         </div>
@@ -308,11 +305,8 @@
         <div>
             <h3 class="mb-4 text-lg font-semibold text-white">Company</h3>
             <ul class="space-y-2">
-                <li><a href="#" class="text-gray-400 transition-colors hover:text-white">About us</a></li>
-                <li><a href="#" class="text-gray-400 transition-colors hover:text-white">Blog</a></li>
-                <li><a href="#" class="text-gray-400 transition-colors hover:text-white">Contact us</a></li>
-                <li><a href="#" class="text-gray-400 transition-colors hover:text-white">Pricing</a></li>
-                <li><a href="#" class="text-gray-400 transition-colors hover:text-white">Testimonials</a></li>
+                <li><a href="{{ route('about') }}" class="text-gray-400 transition-colors hover:text-white">About us</a></li>
+                <li><a href="{{ route('faq') }}" class="text-gray-400 transition-colors hover:text-white">FAQ</a></li>
             </ul>
         </div>
 
@@ -327,15 +321,6 @@
             </ul>
         </div>
 
-        <div>
-            <h3 class="mb-4 text-lg font-semibold text-white">Stay up to date</h3>
-            <form class="flex">
-                <input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 text-white placeholder-gray-400 bg-gray-800 border border-gray-700 rounded-l-xl focus:outline-none focus:border-blue-500">
-                <button type="submit" class="px-6 py-3 btn-futuristic rounded-r-xl">
-                    <img src="{{ asset('send.png') }}" class="h-5">
-                </button>
-            </form>
-        </div>
     </div>
 </footer>
 @endsection
