@@ -7,24 +7,31 @@ use Illuminate\Http\Request;
 use App\Models\Investment;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class InvestmentController extends Controller
 {
 
     public function index(Request $request)
     {
-        $query = Investment::with('category', 'users')->latest();
+        $query = Investment::with('category')
+            ->withCount([
+                'transactions as investors_count' => function ($query) {
+                    $query->select(DB::raw('COUNT(DISTINCT user_id)'));
+                }
+            ])
+            ->latest();
 
-        // Cek apakah ada filter kategori
         if ($request->has('category') && $request->category != '') {
             $query->where('category_id', $request->category);
         }
 
         $investments = $query->get();
-        $categories = \App\Models\Category::all();
+        $categories = Category::all();
 
         return view('admin.investments.index', compact('investments', 'categories'));
     }
+
 
 
     public function create()

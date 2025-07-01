@@ -17,6 +17,7 @@ use App\Http\Controllers\DepositController;
 use App\Http\Controllers\Admin\DepositRequestController;
 use App\Http\Controllers\WithdrawController;
 use App\Http\Controllers\UserAssetController;
+use App\Http\Controllers\Admin\WithdrawRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,6 +131,11 @@ Route::get('/about', function () {
 
 
 Route::view('/faq', 'faq')->name('faq');
+
+Route::prefix('admin')->middleware(['auth', 'is_admin'])->name('admin.')->group(function () {
+    Route::post('/withdraw/approve/{id}', [WithdrawRequestController::class, 'approve'])->name('withdraw.approve');
+    Route::post('/withdraw/reject/{id}', [WithdrawRequestController::class, 'reject'])->name('withdraw.reject');
+});
 
 /*
 |--------------------------------------------------------------------------

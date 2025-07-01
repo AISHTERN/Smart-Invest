@@ -72,7 +72,7 @@
                         <td class="px-6 py-3">{{ $investment->title }}</td>
                         <td class="px-6 py-3">{{ $investment->category->name }}</td>
                         <td class="px-6 py-3">Rp{{ number_format($investment->market_price, 0, ',', '.') }}</td>
-                        <td class="px-6 py-3">{{ $investment->users->count() }}</td>
+                        <td>{{ $investment->investors_count }}</td>
                         <td class="px-6 py-3 space-x-2 text-right">
                             <a href="{{ route('admin.investments.edit', $investment->id) }}"
                                class="text-[#64ffda] hover:underline">Edit</a>

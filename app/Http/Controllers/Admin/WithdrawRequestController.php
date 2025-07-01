@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\WithdrawRequest;
 use Illuminate\Http\Request;
 
-class nWithdrawRequestController extends Controller
+class WithdrawRequestController extends Controller
 {
     public function index()
     {
@@ -13,17 +14,33 @@ class nWithdrawRequestController extends Controller
         return view('admin.withdraw.request', compact('withdrawRequests'));
     }
 
-    public function approve($id)
-    {
-        $withdraw = WithdrawRequest::with('user')->findOrFail($id);
-        $withdraw->status = 'approved';
-        $withdraw->save();
+public function approve($id)
+{
+    $withdraw = \App\Models\WithdrawRequest::findOrFail($id);
 
-        // Kurangi saldo user
-        $withdraw->user->decrement('balance', $withdraw->amount);
-
-        return back()->with('success', 'Withdraw berhasil disetujui.');
+    // Cegah approve ganda
+    if ($withdraw->status !== 'pending') {
+        return back()->with('error', 'Withdraw sudah diproses sebelumnya.');
     }
+
+    $user = \App\Models\User::find($withdraw->user_id);
+    if (!$user) {
+        return back()->with('error', 'User tidak ditemukan.');
+    }
+
+    // Kurangi saldo user
+    $user->balance -= $withdraw->amount;
+    $user->save();
+
+    // Set status approved
+    $withdraw->status = 'approved';
+    $withdraw->save();
+
+    return back()->with('success', 'Withdraw disetujui dan saldo user telah dipotong.');
+}
+
+
+
 
     public function reject($id)
     {

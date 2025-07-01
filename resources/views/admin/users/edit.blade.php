@@ -4,6 +4,14 @@
 <div class="max-w-xl p-6 mx-auto mt-10 bg-[#1e293b] text-white border border-[#334155] rounded-xl shadow-xl">
     <h2 class="mb-6 text-2xl font-bold text-[#64ffda]">✏️ Edit User</h2>
 
+        {{-- Tombol Kembali --}}
+    <div class="mb-6">
+        <a href="{{ route('admin.users') }}"
+           class="inline-flex items-center px-4 py-2 text-sm bg-[rgba(100,255,218,0.1)] border border-[rgba(100,255,218,0.3)] rounded hover:bg-[rgba(100,255,218,0.2)] transition">
+            ← Kembali
+        </a>
+    </div>
+
     <form action="{{ route('admin.users.update', $user->id) }}" method="POST" class="space-y-5">
         @csrf
         @method('PUT')

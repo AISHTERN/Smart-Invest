@@ -68,14 +68,19 @@
                         <td class="px-4 py-3">{{ $withdraw->user->full_name }}</td>
                         <td class="px-4 py-3 text-green-400">Rp {{ number_format($withdraw->amount, 0, ',', '.') }}</td>
                         <td class="px-4 py-3 text-blue-300">
-                            {{ $withdraw->method_type === 'bank' ? $withdraw->bank_name : $withdraw->ewallet_name }}
+                            @if($withdraw->method_type === 'bank')
+                                {{ $withdraw->bank_name ?? '-' }}
+                            @elseif($withdraw->method_type === 'ewallet')
+                                {{ $withdraw->ewallet_name ?? '-' }}
+                            @else
+                                -
+                            @endif
                         </td>
                         <td class="px-4 py-3">{{ $withdraw->account_number }}</td>
                         <td class="px-4 py-3">{{ $withdraw->account_name }}</td>
                         <td class="px-4 py-3 space-x-2 text-right">
                             {{-- Tombol Approve --}}
-                            <form action="{{ route('admin.withdraw.updateStatus', ['id' => $withdraw->id, 'status' => 'approved']) }}"
-                                  method="POST" class="inline-block" onsubmit="return confirm('Setujui permintaan withdraw ini?')">
+                            <form action="{{ route('admin.withdraw.approve', $withdraw->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Setujui permintaan withdraw ini?')">
                                 @csrf
                                 <button type="submit" class="px-3 py-1 text-xs font-bold text-white transition bg-green-600 rounded hover:bg-green-700">
                                     Approve
@@ -83,8 +88,7 @@
                             </form>
 
                             {{-- Tombol Tolak --}}
-                            <form action="{{ route('admin.withdraw.updateStatus', ['id' => $withdraw->id, 'status' => 'rejected']) }}"
-                                  method="POST" class="inline-block" onsubmit="return confirm('Tolak permintaan withdraw ini?')">
+                            <form action="{{ route('admin.withdraw.reject', $withdraw->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Tolak permintaan withdraw ini?')">
                                 @csrf
                                 <button type="submit" class="px-3 py-1 text-xs font-bold text-white transition bg-red-600 rounded hover:bg-red-700">
                                     Tolak

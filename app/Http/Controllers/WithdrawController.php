@@ -32,16 +32,16 @@ class WithdrawController extends Controller
         }
 
         // Simpan permintaan withdraw
-        WithdrawRequest::create([
-            'user_id' => $user->id,
-            'amount' => $request->amount,
-            'method' => $request->method_type === 'bank' ? $request->bank_name : $request->ewallet_name,
-            'bank_name' => $request->bank_name,
-            'ewallet_name' => $request->ewallet_name,
-            'account_number' => $request->account_number,
-            'account_name' => $request->account_name,
-            'status' => 'pending',
-        ]);
+            WithdrawRequest::create([
+                'user_id'        => auth()->id(),
+                'amount'         => $request->amount,
+                'method_type'    => $request->method_type, // 'bank' atau 'ewallet'
+                'bank_name'      => $request->method_type === 'bank' ? $request->bank_name : null,
+                'ewallet_name'   => $request->method_type === 'ewallet' ? $request->ewallet_name : null,
+                'account_number' => $request->account_number,
+                'account_name'   => $request->account_name,
+                'status'         => 'pending',
+            ]);
 
         // Tambahkan notifikasi
         Notification::create([

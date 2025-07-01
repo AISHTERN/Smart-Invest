@@ -8,13 +8,7 @@
         </div>
     @endif
 
-    {{-- Tombol Kembali --}}
-    <div class="mb-6">
-        <a href="{{ route('admin.dashboard') }}"
-           class="inline-flex items-center px-4 py-2 text-sm bg-[rgba(100,255,218,0.1)] border border-[rgba(100,255,218,0.3)] rounded hover:bg-[rgba(100,255,218,0.2)] transition">
-            ← Kembali ke Dashboard
-        </a>
-    </div>
+
 
     {{-- Konten Utama --}}
     <main class="flex-1 p-8">
@@ -22,6 +16,14 @@
         <div class="flex items-center justify-between mb-6">
             <h1 class="text-2xl font-bold text-white">👥 Manage Users</h1>
         </div>
+
+            {{-- Tombol Kembali --}}
+    <div class="mb-6">
+        <a href="{{ route('admin.dashboard') }}"
+           class="inline-flex items-center px-4 py-2 text-sm bg-[rgba(100,255,218,0.1)] border border-[rgba(100,255,218,0.3)] rounded hover:bg-[rgba(100,255,218,0.2)] transition">
+            ← Kembali ke Dashboard
+        </a>
+    </div>
 
         {{-- Tabel User --}}
         <div class="p-6 bg-[#1e293b] border border-[#334155] rounded-xl shadow-lg">
